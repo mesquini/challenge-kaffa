@@ -13,28 +13,35 @@ import {
   Label,
   LabelText,
   LabelButton,
+  Empty,
+  EmptyText,
 } from './styles';
+import {ActivityIndicator, View} from 'react-native';
 
 interface ITodo {
-  id: number;
+  id: string;
   label: string;
 }
 
 const Ex_5: React.FC = () => {
   const [todo, setTodo] = useState([] as ITodo[]);
   const [value, setValue] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     async function loadTodos() {
       const todos = await AsyncStorage.getItem('@kaffa/todo');
       if (todos) setTodo(JSON.parse(todos));
+
+      setLoading(false);
     }
     loadTodos();
   }, []);
 
   const handleSendTodo = useCallback(async () => {
     if (value.length > 0) {
-      const id = new Date().getTime();
+      const id = new Date().getTime().toString();
 
       var newTodo: ITodo[] = [];
 
@@ -53,12 +60,20 @@ const Ex_5: React.FC = () => {
     var newTodo: ITodo[] = [];
 
     setTodo((state) => {
-      newTodo = state.filter((todo) => todo.id !== Number(id));
+      newTodo = state.filter((todo) => todo.id !== id);
       return newTodo;
     });
 
     await AsyncStorage.setItem('@kaffa/todo', JSON.stringify(newTodo));
   }, []);
+
+  if (loading) {
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <ActivityIndicator size="large" color="#c1c1c1" />
+      </View>
+    );
+  }
 
   return (
     <Container>
@@ -67,6 +82,7 @@ const Ex_5: React.FC = () => {
         <TopView>
           <InputTodo
             autoCapitalize="words"
+            placeholder="Insert one todo"
             onChangeText={(e) => setValue(e)}
             value={value}
           />
@@ -88,6 +104,12 @@ const Ex_5: React.FC = () => {
             </Label>
           )}
         />
+
+        {todo.length === 0 && (
+          <Empty>
+            <EmptyText>Don't have Todo list</EmptyText>
+          </Empty>
+        )}
       </Content>
     </Container>
   );

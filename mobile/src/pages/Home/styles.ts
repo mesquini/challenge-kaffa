@@ -2,8 +2,7 @@ import styled from 'styled-components/native';
 import {s, vs, ms} from 'react-native-size-matters';
 
 export const Container = styled.View`
-  flex: 1;
-  justify-content: center;
+  /* flex: 1; */
   align-items: center;
 `;
 

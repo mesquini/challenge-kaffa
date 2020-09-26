@@ -20,7 +20,7 @@ export const InputTodo = styled.TextInput`
   flex: 1;
   background: #c1c1c1;
   width: ${s(180)}px;
-  padding: ${ms(5)}px;
+  padding: ${ms(5)}px ${ms(15)}px;
   margin: 0 ${ms(10)}px;
   font-size: ${ms(14)}px;
 `;
@@ -42,3 +42,14 @@ export const LabelText = styled.Text`
 `;
 
 export const LabelButton = styled.TouchableOpacity``;
+
+export const Empty = styled.View`
+  flex: 1;
+  align-items: center;
+`;
+
+export const EmptyText = styled.Text`
+  font-size: ${ms(20)}px;
+  font-weight: bold;
+  color: #ff0000;
+`;

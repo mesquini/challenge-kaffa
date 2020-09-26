@@ -16,4 +16,5 @@ export const Title = styled.Text`
   font-size: ${moderateScale(22)}px;
   font-family: 'WorkSans-Medium';
   margin: ${moderateScale(20)}px auto;
+  text-align: center;
 `;
