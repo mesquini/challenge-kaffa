@@ -5,7 +5,7 @@
   <a href="#rocket-technology">Technology</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#pre-requisites">Pre-requisites</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#information_source-installation-and-execution">Installation and execution</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#clapper-preview">Preview</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#clapper-preview-mobile">Preview</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 </p>
 
 ## :rocket: Technology
@@ -32,9 +32,7 @@ To clone the repository, you will need the [Git](https://git-scm.com), [Node.js 
 
 ## :clapper: Preview Mobile
 
-<p aling="center">
-  <img src=".github/preview-mobile.gif" width=300  />
-</p>
+<img src=".github/preview-mobile.gif" width=300 />
 
 ---
 
