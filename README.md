@@ -34,7 +34,9 @@ To clone the repository, you will need the [Git](https://git-scm.com), [Node.js 
 
 <img src=".github/preview-mobile.gif" width=300 />
 
----
+### 8) Entity Relationship Diagram - Simple Order Manager
+
+## <img src=".github/ex8.png" width=500 />
 
 Made with ♥ by Victor Mesquini :wave: [Get in touch!](https://www.linkedin.com/in/mesquini/)
 
