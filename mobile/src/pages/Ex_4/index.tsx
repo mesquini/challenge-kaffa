@@ -1,152 +1,190 @@
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import {PanResponder, Animated} from 'react-native';
+import React, {useCallback, useMemo, useState} from 'react';
+import {PanResponder, Animated, ToastAndroid} from 'react-native';
 
 import Header from '../../components/Header';
-import {Container, Rectangle} from './styles';
+import {Container, OverLap, Rectangle} from './styles';
+
+interface IRect {
+  x: number;
+  y: number;
+}
+
+const HEIGHT = 78.18181610107422;
+const WIDTH = 157.09091186523438;
 
 const Ex_4: React.FC = () => {
-  const [view0, setView0] = useState();
-
   const rectangle = new Animated.ValueXY({x: 0, y: 0});
+  const [r1, setR1] = useState<IRect>();
 
   const rectangle2 = new Animated.ValueXY({x: 0, y: 0});
+  const [r2, setR2] = useState<IRect>();
 
-  const handler = PanResponder.create({
-    onMoveShouldSetPanResponder: () => true,
+  var overlapResult = 0;
 
-    onPanResponderGrant: () => {
-      rectangle.setOffset({
-        x: rectangle.x._value,
-        y: rectangle.y._value,
-      });
+  const handler = useMemo(() => {
+    return PanResponder.create({
+      onMoveShouldSetPanResponder: () => true,
 
-      rectangle.setValue({x: 0, y: 0});
-    },
+      onPanResponderGrant: () => {
+        rectangle.setOffset({
+          x: rectangle.x._value,
+          y: rectangle.y._value,
+        });
 
-    onPanResponderMove: (e, gestureState) => {
-      rectangle.setValue({
-        x: gestureState.dx,
-        y: gestureState.dy,
-      });
+        rectangle.setValue({x: 0, y: 0});
+      },
 
-      return Animated.event(
-        [
-          null,
+      onPanResponderMove: (e, gestureState) => {
+        const layout = e.nativeEvent;
+
+        rectangle.setValue({
+          x: gestureState.dx,
+          y: gestureState.dy,
+        });
+
+        if (r2) {
+          overlapResult = intersectingRect(
+            {
+              x: layout.pageX,
+              y: layout.pageY,
+            },
+            {
+              x: r2.x,
+              y: r2.y,
+            },
+          );
+        }
+
+        console.log(overlapResult);
+
+        ToastAndroid.showWithGravity(
+          `Total overlap (px²): ${overlapResult.toFixed(3)}`,
+          1500,
+          ToastAndroid.CENTER,
+        );
+
+        return Animated.event(
+          [
+            null,
+            {
+              dx: rectangle.x,
+              dy: rectangle.y,
+            },
+          ],
           {
-            dx: rectangle.x,
-            dy: rectangle.y,
+            useNativeDriver: true,
           },
-        ],
-        {
-          useNativeDriver: true,
-        },
-      );
-    },
+        );
+      },
 
-    onPanResponderRelease: () => {
-      rectangle.flattenOffset();
-    },
-  });
+      onPanResponderRelease: () => {
+        rectangle.flattenOffset();
+      },
+    });
+  }, [rectangle, r2]);
 
-  const handler2 = PanResponder.create({
-    onMoveShouldSetPanResponder: () => true,
+  const handler2 = useMemo(() => {
+    return PanResponder.create({
+      onMoveShouldSetPanResponder: () => true,
 
-    onPanResponderGrant: () => {
-      rectangle2.setOffset({
-        x: rectangle2.x._value,
-        y: rectangle2.y._value,
-      });
+      onPanResponderGrant: () => {
+        rectangle2.setOffset({
+          x: rectangle2.x._value,
+          y: rectangle2.y._value,
+        });
 
-      rectangle2.setValue({x: 0, y: 0});
-    },
+        rectangle2.setValue({x: 0, y: 0});
+      },
 
-    onPanResponderMove: (e, gestureState) => {
-      rectangle2.setValue({
-        x: gestureState.dx,
-        y: gestureState.dy,
-      });
-      console.log(e.nativeEvent);
-      // view0.measure((fx, fy, width, height, px, py) => {
-      //   console.log('Component width is: ' + width);
-      //   console.log('Component height is: ' + height);
-      //   console.log('X offset to frame: ' + fx);
-      //   console.log('Y offset to frame: ' + fy);
-      //   console.log('X offset to page: ' + px);
-      //   console.log('Y offset to page: ' + py);
-      // })
+      onPanResponderMove: (e, gestureState) => {
+        const layout = e.nativeEvent;
 
-      return Animated.event(
-        [
-          null,
+        // console.log(e.nativeEvent);
+        if (r1) {
+          overlapResult = intersectingRect(
+            {
+              x: r1.x,
+              y: r1.y,
+            },
+            {
+              x: layout.pageX,
+              y: layout.pageY,
+            },
+          );
+        }
+
+        rectangle2.setValue({
+          x: gestureState.dx,
+          y: gestureState.dy,
+        });
+
+        console.log(overlapResult);
+
+        ToastAndroid.showWithGravity(
+          `Total overlap (px²): ${overlapResult.toFixed(3)}`,
+          1500,
+          ToastAndroid.CENTER,
+        );
+
+        return Animated.event(
+          [
+            null,
+            {
+              dx: rectangle2.x,
+              dy: rectangle2.y,
+            },
+          ],
           {
-            dx: rectangle2.x,
-            dy: rectangle2.y,
+            useNativeDriver: true,
           },
-        ],
-        {
-          useNativeDriver: true,
-        },
-      );
-    },
+        );
+      },
 
-    onPanResponderRelease: () => {
-      rectangle2.flattenOffset();
-    },
-  });
+      onPanResponderRelease: () => {
+        rectangle2.flattenOffset();
+      },
+    });
+  }, [r1, rectangle2]);
 
-  function computeArea(K, L, M, N, P, Q, R, S) {
-    let areaA = Number((M - K) * (N - L));
-    let areaB = Number((R - P) * (S - Q));
-    var xIntersection = 0;
-    var yIntersection = 0;
-    var areaIntersection = 0;
+  const intersectingRect = useCallback((A: IRect, B: IRect) => {
+    var d1x = A.x;
+    var d1y = A.y;
+    var d1xMax = A.x + WIDTH;
+    var d1yMax = A.y + HEIGHT;
 
-    if (Math.min(M, R) - Math.max(K, P) > 0) {
-      xIntersection = Number(Math.min(M, R) - Math.max(K, P));
-    }
+    var d2x = B.x;
+    var d2y = B.y;
+    var d2xMax = B.x + WIDTH;
+    var d2yMax = B.y + HEIGHT;
 
-    if (Math.min(N, S) - Math.max(L, Q) > 0) {
-      yIntersection = Number(Math.min(N, S) - Math.max(L, Q));
-    }
+    var x_overlap = Math.max(0, Math.min(d1xMax, d2xMax) - Math.max(d1x, d2x));
+    var y_overlap = Math.max(0, Math.min(d1yMax, d2yMax) - Math.max(d1y, d2y));
 
-    if (xIntersection == 0 || yIntersection == 0) {
-      areaIntersection = 0;
-    } else {
-      areaIntersection = Number(xIntersection * yIntersection);
-    }
-
-    return areaA + areaB - areaIntersection;
-  }
+    return x_overlap * y_overlap;
+  }, []);
 
   return (
     <Container>
       <Header>Compute area of intersection between two rectangles</Header>
 
       <Rectangle
-        ref={(view0) => setView0(view0)}
-        onLayout={(event) => {
-          const layout = event.nativeEvent.layout;
-          console.log('height:', layout.height);
-          console.log('width:', layout.width);
-          console.log('x:', layout.x);
-          console.log('y:', layout.y);
-        }}
         {...handler.panHandlers}
         style={{
           transform: [{translateX: rectangle.x}, {translateY: rectangle.y}],
         }}
+        onLayout={(event) => {
+          const {x, y} = event.nativeEvent.layout;
+          setR1({x, y});
+        }}
       />
       <Rectangle
         {...handler2.panHandlers}
-        onLayout={(event) => {
-          const layout = event.nativeEvent.layout;
-          console.log('height:', layout.height);
-          console.log('width:', layout.width);
-          console.log('x:', layout.x);
-          console.log('y:', layout.y);
-        }}
         style={{
           transform: [{translateX: rectangle2.x}, {translateY: rectangle2.y}],
+        }}
+        onLayout={(event) => {
+          const {x, y} = event.nativeEvent.layout;
+          setR2({x, y});
         }}
       />
     </Container>

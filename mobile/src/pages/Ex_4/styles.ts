@@ -6,6 +6,12 @@ export const Container = styled.View`
   flex: 1;
 `;
 
+export const OverLap = styled.Text`
+  font-size: ${ms(18)}px;
+  font-weight: bold;
+  margin: ${ms(10)}px;
+`;
+
 export const Rectangle = styled(Animated.View)`
   width: ${s(140)}px;
   height: ${vs(70)}px;
