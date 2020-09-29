@@ -19,8 +19,8 @@ const Home: React.FC = () => {
       <Button onPress={() => navigate('Ex_1_2')}>
         <ButtonText>Exercises 1 and 2</ButtonText>
       </Button>
-      <Button onPress={() => navigate('Ex_4')}>
-        <ButtonText>Exercise 4</ButtonText>
+      <Button onPress={() => navigate('Ex_3_4')}>
+        <ButtonText>Exercise 3 and 4</ButtonText>
       </Button>
       <Button onPress={() => navigate('Ex_5')}>
         <ButtonText>Exercise 5</ButtonText>

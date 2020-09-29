@@ -5,7 +5,7 @@ import {StatusBar} from 'react-native';
 
 import Home from '../pages/Home';
 import Ex_1_2 from '../pages/Ex_1_2';
-import Ex_4 from '../pages/Ex_4';
+import Ex_3_4 from '../pages/Ex_3_4';
 import Ex_5 from '../pages/Ex_5';
 import Ex_6_7 from '../pages/Ex_6_7';
 
@@ -23,7 +23,7 @@ function AppStack() {
           }}>
           <Screen name="Home" component={Home} />
           <Screen name="Ex_1_2" component={Ex_1_2} />
-          <Screen name="Ex_4" component={Ex_4} />
+          <Screen name="Ex_3_4" component={Ex_3_4} />
           <Screen name="Ex_5" component={Ex_5} />
           <Screen name="Ex_6_7" component={Ex_6_7} />
         </Navigator>

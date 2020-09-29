@@ -12,7 +12,7 @@ interface IRect {
 const HEIGHT = 78.18181610107422;
 const WIDTH = 157.09091186523438;
 
-const Ex_4: React.FC = () => {
+const Ex_3_4: React.FC = () => {
   const rectangle = new Animated.ValueXY({x: 0, y: 0});
   const [r1, setR1] = useState<IRect>();
 
@@ -191,4 +191,4 @@ const Ex_4: React.FC = () => {
   );
 };
 
-export default Ex_4;
+export default Ex_3_4;
