@@ -5,7 +5,8 @@
   <a href="#rocket-technology">Technology</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#pre-requisites">Pre-requisites</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#information_source-installation-and-execution">Installation and execution</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#clapper-preview-mobile">Preview</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#clapper-preview-mobile">Preview Mobile</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#clapper-preview-web">Preview Web</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 </p>
 
 ## :rocket: Technology
@@ -33,6 +34,10 @@ To clone the repository, you will need the [Git](https://git-scm.com), [Node.js 
 ## :clapper: Preview Mobile
 
 <img src=".github/preview-mobile.gif" width=300 />
+
+## :clapper: Preview Web
+
+<img src=".github/preview-web.gif" width=500 />
 
 ### 8) Entity Relationship Diagram - Simple Order Manager
 

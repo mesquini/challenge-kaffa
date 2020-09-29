@@ -1,5 +1,4 @@
 import React, {useCallback, useMemo, useState} from 'react';
-import {isValid, format, strip} from '../../utils/cnpjValidator';
 import {ToastAndroid} from 'react-native';
 
 import {
@@ -13,6 +12,7 @@ import {
   ButtonValidate,
 } from './styles';
 
+import {isValid, format, strip} from '../../utils/cnpjValidator';
 import Header from '../../components/Header';
 
 const Ex_1_2: React.FC = () => {
